@@ -35,8 +35,13 @@ const fp = flatpickr(refs.inputDateTime, options);
 refs.btnStart.addEventListener('click', onStartTimerClick);
 
 function onStartTimerClick() {
-  setInterval(() => {
+  const timerClick = setInterval(() => {
     const ms = selectedDay.getTime() - Date.now();
+    if (ms <= 0) {
+      console.log(1);
+      clearInterval(timerClick);
+      return;
+    }
     const objTime = convertMs(ms);
     getDateForTimer(objTime);
   }, 1000);
